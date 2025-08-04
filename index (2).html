@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untuk Indah Cantik 💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0 1rem;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(135deg, #f8a5c2, #74b9ff);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+      max-width: 520px;
+      margin: 1rem;
+      animation: fadeIn 2s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #e84393;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .button {
+      padding: 0.8rem 1.6rem;
+      font-size: 1rem;
+      background: #e84393;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .button:hover { background: #d63072; }
+
+    .reject-button {
+      padding: 0.8rem 1.6rem;
+      font-size: 1rem;
+      background: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      position: absolute;
+      transition: 0.3s;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      width: 10px;
+      height: 10px;
+      background: gold;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: sparkle 1s linear forwards;
+    }
+
+    .from {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      opacity: 1;
+      transition: opacity 1s ease;
+      margin-bottom: 2rem;
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hai, Indah Cantik 💖</h1>
+    <p>
+      Aku nulis ini karena aku kepikiran kamu terus... dan tiba-tiba kepikiran, kayaknya seru banget kalau kita <strong>jadi mabar Genshin</strong> 🎮✨
+    </p>
+    <p>
+      Kita bisa eksplor Teyvat bareng, ngalahin boss, buka chest, dan saling bantu buat nyelesain misi harian. Aku janji nggak bakal ninggalin kamu sendirian di domain 😌
+    </p>
+    <p>
+      Kamu mau nggak jadi partner petualanganku? Dijamin seru dan penuh tawa~ 💫
+    </p>
+    <a href="https://wa.me/+6285172145122?text=Iya%2C%20aku%20mau%20mabar%20Genshin%20bareng%20kamu%20kok%20sayank" target="_blank" class="button" onclick="showSparkles(event)">Iya, ayo main!</a>
+    <button id="noBtn" class="reject-button" style="top: 70%; left: 60%;">Maaf, lagi sibuk 🙈</button>
+  </div>
+
+  <div class="from" id="senderName">Dari: Luthfi45120</div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const card = document.querySelector('.card');
+    const sender = document.getElementById('senderName');
+
+    function moveButton(e) {
+      const touch = e.touches ? e.touches[0] : e;
+      const buttonWidth = noBtn.offsetWidth;
+      const buttonHeight = noBtn.offsetHeight;
+      const cardRect = card.getBoundingClientRect();
+      const buffer = 100;
+      let x, y;
+      do {
+        x = Math.random() * (card.offsetWidth - buttonWidth);
+        y = Math.random() * (card.offsetHeight - buttonHeight);
+      } while (
+        x > card.offsetWidth / 2 - buffer && x < card.offsetWidth / 2 + buffer &&
+        y > card.offsetHeight - 150
+      );
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener('mouseover', moveButton);
+    noBtn.addEventListener('touchstart', moveButton);
+
+    function showSparkles(e) {
+      for (let i = 0; i < 30; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = `${e.clientX + Math.random() * 40 - 20}px`;
+        sparkle.style.top = `${e.clientY + Math.random() * 40 - 20}px`;
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1000);
+      }
+    }
+
+    const names = ['Luthfi45120', 'Lutcyfus'];
+    let index = 0;
+    setInterval(() => {
+      sender.style.opacity = 0;
+      setTimeout(() => {
+        sender.textContent = 'Dari: ' + names[index];
+        sender.style.opacity = 1;
+        index = (index + 1) % names.length;
+      }, 1000);
+    }, 4000);
+  </script>
+</body>
+</html>
